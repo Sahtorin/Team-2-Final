@@ -14,7 +14,7 @@
 
 ## Setup
 
-bash
+```bash
 
 git clone https://github.com/Sahtorin/Team-2-Final.git
 cd Team-2-Final
@@ -22,6 +22,7 @@ python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py runserver
+```
 
 ## Notes
 
@@ -29,7 +30,8 @@ python manage.py runserver
 
 - migration once models.py is done is as follows:
 
-bash
+```bash
 
 python manage.py makemigrations
 python manage.py migrate
+```
