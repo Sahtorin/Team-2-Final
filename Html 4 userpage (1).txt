@@ -1,0 +1,59 @@
+﻿<h1 class="welcome">Welcome, (username goes here)</h1>
+<div class="divider"></div>
+
+
+<div class="center-box">
+  <button class="create-btn">Create New Flyer</button>
+</div>
+
+
+<h2>Your Flyers</h2>
+(saved flyers will show here)
+
+
+<h2>Saved templates</h2>
+(saved templates will be saved here)
+
+
+
+
+<style>
+  .welcome {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+
+  .divider {
+    width: 60%;
+    height: 1px;
+    background: #444;
+    margin: 0 auto 40px auto;
+  }
+
+
+  .center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+
+
+  .create-btn {
+    padding: 20px 40px;
+    font-size: 20px;
+    border: 2px solid white;
+    background: black;
+    color: white;
+    cu
+rsor: pointer;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+
+  .create-btn:hover {
+    background: white;
+    color: black;
+  }
+</style>
