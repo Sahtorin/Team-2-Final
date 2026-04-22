@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .forms import FlyerForm, ProfileForm, RegisterForm
 from .models import Flyer, Profile

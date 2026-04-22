@@ -3,7 +3,7 @@ views.py checklist
 - imports
   - login
   - login_required
-  - render / redirect / get_object_or_404?
+  - render / redirect / get_object_or_404
   - RegisterForm / ProfileForm / FlyerForm
   - Profile / Flyer
 
