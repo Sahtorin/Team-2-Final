@@ -1,7 +1,6 @@
 # Python
 *.pyc
-*~
-__pycache__
+__pycache__/
 
 # Env
 .env
@@ -16,23 +15,13 @@ db.sqlite3
 media/
 staticfiles/
 
-
-# macOS
-._*
+# OS
 .DS_Store
-.fseventsd
-.Spotlight-V100
-
-# Windows
-Thumbs.db*
-ehthumbs*.db
-[Dd]esktop.ini
-$RECYCLE.BIN/
+THumbs.db
+Desktop.ini
 
 # Visual Studio
 .vscode/
-.history/
-*.code-workspace
 .idea/
 
 # test
