@@ -1,8 +1,33 @@
 {% extends "flyer_app/base.html" %}
 
-{% block title %}Flyer Detail{% endblock %}
+{% block title %}{{ flyer.flyer_name }}{% endblock %}
 
 {% block content %}
-<h1>Flyer Detail</h1>
-<p>Single flyer info goes here.</p>
+<h1>{{ flyer.flyer_name }}</h1>
+
+<p><strong>Artist:</strong> {{ flyer.artist_name }}</p>
+
+{% if flyer.event_name %}
+    <p><strong>Event Name:</strong> {{ flyer.event_name }}</p>
+{% endif %}
+
+<p><strong>Date:</strong> {{ flyer.event_date }}</p>
+<p><strong>Location:</strong> {{ flyer.event_location }}</p>
+
+{% if flyer.cover_charge %}
+    <p><strong>Cover Charge:</strong> ${{ flyer.cover_charge }}</p>
+{% endif %}
+
+{% if flyer.event_link %}
+    <p>
+        <strong>Event Link:</strong>
+        <a href="{{ flyer.event_link }}" target="_blank">View Event</a>
+    </p>
+{% endif %}
+
+<p><strong>Created By:</strong> {{ flyer.profile.display_name }}</p>
+
+<p>
+    <a href="{% url 'home' %}">Back to Home</a>
+</p>
 {% endblock %}
