@@ -1,0 +1,70 @@
+views.py checklist
+
+- imports
+  - login
+  - login_required
+  - render / redirect / get_object_or_404
+  - RegisterForm / ProfileForm / FlyerForm
+  - Profile / Flyer
+
+- home view
+  - send logged-in user to dashboard
+  - send logged-out user to login
+
+- register_view
+  - show register form
+  - process register form
+  - create user
+  - create profile
+  - log user in
+  - redirect to dashboard
+
+- dashboard view
+  - get current user profile
+  - get current user flyers
+  - render dashboard
+
+- profile_detail view
+  - get current user profile
+  - render profile detail
+
+- profile_edit view
+  - get current user profile
+  - show prefilled form
+  - save edits
+  - redirect to profile page
+
+- flyer_list view
+  - get current user flyers
+  - render flyer list
+
+- flyer_detail view
+  - get one flyer by pk
+  - make sure it belongs to current user
+  - render flyer detail
+
+- flyer_create view
+  - get current user profile
+  - show blank flyer form
+  - process flyer form
+  - attach flyer to current user profile
+  - save flyer
+  - redirect to flyer detail
+
+- flyer_edit view
+  - get flyer by pk for current user
+  - show prefilled flyer form
+  - save changes
+  - redirect to flyer detail
+
+- flyer_delete view
+  - get flyer by pk for current user
+  - show delete confirmation
+  - delete on POST
+  - redirect to flyer list
+
+notes
+- use @login_required on everything except home and register_view
+- use request.FILES where forms may use images
+- use instance= when editing
+- use commit=False when setting flyer.profile in the view
