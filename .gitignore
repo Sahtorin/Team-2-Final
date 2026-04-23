@@ -24,6 +24,6 @@ Desktop.ini
 .vscode/
 .idea/
 
-# test
+# Test
 .pytest_cache/
 .coverage
