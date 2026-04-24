@@ -4,11 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import FlyerForm, ProfileForm, RegisterForm
 from .models import Flyer, Profile
 
-#if logged in go to dashboard, or go to login
+#render home.html with flyers from db.
 def home(request):
-    if request.user.is_authenticated:
-        return redirect("dashboard")
-    return redirect("login")
+    flyers = Flyer.objects.select_related("profile").all()[:6]
+    return render(request, "flyer_app/home.html", {"flyers": flyers})
 
 #signup/register with redirect
 def register_view(request):
@@ -75,12 +74,10 @@ def flyer_list(request):
     # render flyer_list.html with flyers
     pass
 
-
-@login_required
+#gets flyer from id and sends to flyer_detail
 def flyer_detail(request, pk):
-    # get flyer by pk for current user
-    # render flyer_detail.html with flyer
-    pass
+    flyer = get_object_or_404(Flyer.objects.select_related("profile"), pk=pk)
+    return render(request, "flyer_app/flyer_detail.html", {"flyer": flyer})
 
 
 @login_required

@@ -1,0 +1,31 @@
+{% extends "flyer_app/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to the Flyer App</h1>
+
+<p>
+    This web app is for making/sharing event flyers.
+</p>
+
+<h2>Recent Flyers</h2>
+
+{% if flyers %}
+    <ul>
+        {% for flyer in flyers %}
+            <li>
+                <a href="{% url 'flyer_detail' flyer.pk %}">
+                    <strong>{{ flyer.flyer_name }}</strong>
+                </a><br>
+                Artist: {{ flyer.artist_name }}<br>
+                Date: {{ flyer.event_date }}<br>
+                Location: {{ flyer.event_location }}
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No flyers have been added.</p>
+{% endif %}
+{% endblock %}
