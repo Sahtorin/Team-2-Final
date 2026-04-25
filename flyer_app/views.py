@@ -39,11 +39,12 @@ def register_view(request):
 
 @login_required
 def dashboard(request):
-    # get current user's profile
-    # get that user's flyers
-    # render dashboard.html with profile and flyers
-    pass
-
+    profile = get_object_or_404(Profile, user=request.user)
+    flyers = Flyer.objects.filter(profile=profile)
+    return render(request, "flyer_app/dashboard.html", {
+        "profile": profile,
+        "flyers": flyers,
+    })
 
 @login_required
 def profile_detail(request):
@@ -54,45 +55,50 @@ def profile_detail(request):
 
 @login_required
 def profile_edit(request):
-    # get current user's profile
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # build edit form
-        # save if valid
-        # redirect to profile page
-    # else:
-        # show prefilled form
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("profile_detail")
+    else:
+        form = ProfileForm(instance=profile)
 
-    # render profile_edit.html with form
-    pass
+    return render(request, "flyer_app/profile_edit.html", {"form": form})
 
 
 @login_required
 def flyer_list(request):
-    # get current user's profile
-    # get that user's flyers
-    # render flyer_list.html with flyers
-    pass
+    profile = get_object_or_404(Profile, user=request.user)
+    flyers = Flyer.objects.filter(profile=profile)
 
-#gets flyer from id and sends to flyer_detail
+    return render(request, "flyer_app/flyer_list.html", {
+        "flyers": flyers,
+    })
+
 def flyer_detail(request, pk):
     flyer = get_object_or_404(Flyer.objects.select_related("profile"), pk=pk)
     return render(request, "flyer_app/flyer_detail.html", {"flyer": flyer})
 
-
 @login_required
 def flyer_create(request):
-    # get current user's profile
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # build flyer form
-        # if valid, finish flyer and save it
-        # redirect to flyer detail
-    # else:
-        # show blank flyer form
+    if request.method == "POST":
+        form = FlyerForm(request.POST, request.FILES)
+        if form.is_valid():
+            flyer = form.save(commit=False)
+            flyer.profile = profile
+            flyer.save()
+            return redirect("flyer_detail", pk=flyer.pk)
+    else:
+        form = FlyerForm()
 
-    # render flyer_form.html with form and page title
-    pass
+    return render(request, "flyer_app/flyer_form.html", {
+        "form": form,
+        "page_title": "Create Flyer",
+    })
 
 
 @login_required
@@ -112,11 +118,14 @@ def flyer_edit(request, pk):
 
 @login_required
 def flyer_delete(request, pk):
-    # get flyer by pk for current user
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # delete flyer
-        # redirect to flyer list
+    flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
 
-    # render flyer_confirm_delete.html with flyer
-    pass
+    if request.method == "POST":
+        flyer.delete()
+        return redirect("flyer_list")
+
+    return render(request, "flyer_app/flyer_confirm_delete.html", {
+        "flyer": flyer,
+    })

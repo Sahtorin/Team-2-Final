@@ -4,5 +4,16 @@
 
 {% block content %}
 <h1>Flyer List</h1>
-<p>Flyer list goes here.</p>
+{% if flyers %}
+     <ul>
+        {% for flyer in flyers %}
+              <li>
+                <a href=""{% url 'flyer_detail' flyer.pk %}">
+                </a>
+              </li>
+        {% endfor %}      
+     </ul>
+{% else %}
+   <p>NO flyers found.</p>
+{% endif %}     
 {% endblock %}

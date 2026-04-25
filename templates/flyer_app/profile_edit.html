@@ -4,5 +4,9 @@
 
 {% block content %}
 <h1>Edit Profile</h1>
-<p>Profile form goes here.</p>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type=""submit">Save Profile</button>
+</form>
 {% endblock %}

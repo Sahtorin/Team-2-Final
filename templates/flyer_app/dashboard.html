@@ -4,5 +4,23 @@
 
 {% block content %}
 <h1>Dashboard</h1>
-<p>Dashboard content goes here.</p>
+
+<p>Welcome, {{ profile.display_name }}.</p>
+
+<h2>Your Flyers</h2>
+
+{% if flyers %}
+    <ul>
+        {% for flyer in flyers %}
+            <li>
+                <a href="{% url 'flyer_detail' flyer.pk %}">
+                    {{ flyer.flyer_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not created any flyers yet.</p>
+{% endif %}
+
 {% endblock %}

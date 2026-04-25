@@ -4,5 +4,10 @@
 
 {% block content %}
 <h1>Delete Flyer</h1>
-<p>Delete confirmation goes here.</p>
+<p>Are you sure you want to delete this flyer?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
 {% endblock %}
