@@ -39,11 +39,12 @@ def register_view(request):
 
 @login_required
 def dashboard(request):
-    # get current user's profile
-    # get that user's flyers
-    # render dashboard.html with profile and flyers
-    pass
-
+    profile = get_object_or_404(Profile, user=request.user)
+    flyers = Flyer.objects.filter(profile=profile)
+    return render(request, "flyer_app/dashboard.html", {
+        "profile": profile,
+        "flyers": flyers,
+    })
 
 @login_required
 def profile_detail(request):
