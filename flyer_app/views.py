@@ -39,8 +39,13 @@ def register_view(request):
 
 @login_required
 def dashboard(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
+
     flyers = Flyer.objects.filter(profile=profile)
+
     return render(request, "flyer_app/dashboard.html", {
         "profile": profile,
         "flyers": flyers,
@@ -48,29 +53,45 @@ def dashboard(request):
 
 @login_required
 def profile_detail(request):
-    # get current user's profile
-    # render profile_detail.html with profile
-    pass
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
+
+    return render(request, "flyer_app/profile_detail.html", {
+        "profile": profile,
+    })
 
 
 @login_required
 def profile_edit(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
 
     if request.method == "POST":
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+
         if form.is_valid():
             form.save()
             return redirect("profile_detail")
+
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, "flyer_app/profile_edit.html", {"form": form})
+    return render(request, "flyer_app/profile_edit.html", {
+        "form": form,
+    })
 
 
 @login_required
 def flyer_list(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
+
     flyers = Flyer.objects.filter(profile=profile)
 
     return render(request, "flyer_app/flyer_list.html", {
@@ -81,17 +102,23 @@ def flyer_detail(request, pk):
     flyer = get_object_or_404(Flyer.objects.select_related("profile"), pk=pk)
     return render(request, "flyer_app/flyer_detail.html", {"flyer": flyer})
 
+
 @login_required
 def flyer_create(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
 
     if request.method == "POST":
         form = FlyerForm(request.POST, request.FILES)
+
         if form.is_valid():
             flyer = form.save(commit=False)
             flyer.profile = profile
             flyer.save()
             return redirect("flyer_detail", pk=flyer.pk)
+
     else:
         form = FlyerForm()
 
@@ -103,22 +130,34 @@ def flyer_create(request):
 
 @login_required
 def flyer_edit(request, pk):
-    # get flyer by pk for current user
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
 
-    # if POST:
-        # build edit form for flyer
-        # save if valid
-        # redirect to flyer detail
-    # else:
-        # show prefilled flyer form
+    flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
 
-    # render flyer_form.html with form and page title
-    pass
+    if request.method == "POST":
+        form = FlyerForm(request.POST, request.FILES, instance=flyer)
+        if form.is_valid():
+            form.save()
+            return redirect("flyer_detail", pk=flyer.pk)
+
+    else:
+        form = FlyerForm(instance=flyer)
+
+    return render(request, "flyer_app/flyer_form.html", {
+        "form": form,
+        "page_title": "Edit Flyer",
+    })
 
 
 @login_required
 def flyer_delete(request, pk):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
 
     flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
 

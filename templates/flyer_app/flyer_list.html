@@ -9,6 +9,7 @@
         {% for flyer in flyers %}
               <li>
                 <a href=""{% url 'flyer_detail' flyer.pk %}">
+                  {{flyer.flyer_name}}
                 </a>
               </li>
         {% endfor %}      
