@@ -70,16 +70,16 @@ def profile_edit(request):
 
 @login_required
 def flyer_list(request):
-    # get current user's profile
-    # get that user's flyers
-    # render flyer_list.html with flyers
-    pass
+    profile = get_object_or_404(Profile, user=request.user)
+    flyers = Flyer.objects.filter(profile=profile)
 
-#gets flyer from id and sends to flyer_detail
+    return render(request, "flyer_app/flyer_list.html", {
+        "flyers": flyers,
+    })
+
 def flyer_detail(request, pk):
     flyer = get_object_or_404(Flyer.objects.select_related("profile"), pk=pk)
     return render(request, "flyer_app/flyer_detail.html", {"flyer": flyer})
-
 
 @login_required
 def flyer_create(request):
