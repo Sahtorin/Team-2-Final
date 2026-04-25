@@ -4,5 +4,9 @@
 
 {% block content %}
 <h1>Flyer Form</h1>
-<p>Create/edit flyer form goes here.</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Save Flyer</button>
+</form>
 {% endblock %}

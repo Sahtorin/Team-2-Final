@@ -83,17 +83,22 @@ def flyer_detail(request, pk):
 
 @login_required
 def flyer_create(request):
-    # get current user's profile
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # build flyer form
-        # if valid, finish flyer and save it
-        # redirect to flyer detail
-    # else:
-        # show blank flyer form
+    if request.method == "POST":
+        form = FlyerForm(request.POST, request.FILES)
+        if form.is_valid():
+            flyer = form.save(commit=False)
+            flyer.profile = profile
+            flyer.save()
+            return redirect("flyer_detail", pk=flyer.pk)
+    else:
+        form = FlyerForm()
 
-    # render flyer_form.html with form and page title
-    pass
+    return render(request, "flyer_app/flyer_form.html", {
+        "form": form,
+        "page_title": "Create Flyer",
+    })
 
 
 @login_required
