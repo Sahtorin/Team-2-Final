@@ -113,11 +113,14 @@ def flyer_edit(request, pk):
 
 @login_required
 def flyer_delete(request, pk):
-    # get flyer by pk for current user
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # delete flyer
-        # redirect to flyer list
+    flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
 
-    # render flyer_confirm_delete.html with flyer
-    pass
+    if request.method == "POST":
+        flyer.delete()
+        return redirect("flyer_list")
+
+    return render(request, "flyer_app/flyer_confirm_delete.html", {
+        "flyer": flyer,
+    })
