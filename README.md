@@ -4,6 +4,7 @@
 
 - Justin Walker-Baden — Team Leader
 - Joshua Stine
+- Cliff Nallding Victor
 
 ## About
 
