@@ -55,17 +55,17 @@ def profile_detail(request):
 
 @login_required
 def profile_edit(request):
-    # get current user's profile
+    profile = get_object_or_404(Profile, user=request.user)
 
-    # if POST:
-        # build edit form
-        # save if valid
-        # redirect to profile page
-    # else:
-        # show prefilled form
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("profile_detail")
+    else:
+        form = ProfileForm(instance=profile)
 
-    # render profile_edit.html with form
-    pass
+    return render(request, "flyer_app/profile_edit.html", {"form": form})
 
 
 @login_required
