@@ -1,0 +1,111 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TITLE BLOCK -->
+    <title>{% block title %}Flyer App{% endblock %}</title>
+
+    <!-- EXTRA HEAD BLOCK -->
+    {% block extra_head %}{% endblock %}
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Times New Roman", Times, serif;
+            background: black;
+            color: white;
+        }
+
+        header {
+            padding: 15px 30px;
+            border-bottom: 1px solid white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            color: white;
+            text-decoration: none;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .divider {
+            margin: 40px 0;
+            border-top: 2px solid white;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider span {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: black;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Flyer App</h1>
+
+    <div class="header-actions">
+        {% block header_actions %}
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'create_flyer' %}" class="btn">+ New Flyer</a>
+                <a href="{% url 'logout' %}" class="btn">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn">Login</a>
+            {% endif %}
+        {% endblock %}
+    </div>
+</header>
+
+<!-- Main Content Stuff -->
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+</body>
+</html>

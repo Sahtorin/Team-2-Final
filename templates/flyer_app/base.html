@@ -1,43 +1,36 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Flyer App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- TITLE BLOCK -->
+    <title>{% block title %}Flyer App{% endblock %}</title>
+
+    <!-- EXTRA HEAD BLOCK -->
+    {% block extra_head %}{% endblock %}
+
+   
 </head>
 <body>
-    <header>
-        <div class="nav">
-            <div class="brand">
-                <a href="{% url 'home' %}">Flyer App</a>
-            </div>
 
-            <div>
-                <a href="{% url 'home' %}">Home</a>
+<header>
+    
 
-                {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a>
-                    <a href="{% url 'register' %}">Register</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
 
-    <main>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
 
-        {% block content %}{% endblock %}
-    </main>
+    </div>
+</header>
+
+<!-- Main Content Stuff -->
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
 </body>
 </html>

@@ -1,0 +1,58 @@
+{% extends "flyer_app/base.html" %}
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Top Right Button -->
+<div style="position: absolute; top: 20px; right: 30px;">
+    <a href="{% url 'create_flyer' %}">
+        <button style="padding: 10px 20px; cursor: pointer;">
+            + New Flyer
+        </button>
+    </a>
+</div>
+
+<!-- Main Container -->
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 60px;">
+
+    <!-- Welcome Header -->
+    <h1 style="text-align: center; text-decoration: underline; margin-bottom: 40px;">
+        Welcome {{ user.first_name }}
+    </h1>
+
+    <!-- Your Projects Section -->
+    <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">
+        Your Projects
+    </h2>
+
+    <!-- Placeholder for User Projects -->
+    <div style="width: 70%; min-height: 150px; border: 1px solid #ccc; margin-bottom: 50px; padding: 20px;">
+        <!-- Future: Loop through user's flyers here -->
+        {% comment %} Example:
+        {% for project in projects %}
+            <p>{{ project.title }}</p>
+        {% endfor %}
+        {% endcomment %}
+        <p style="text-align: center; color: gray;">Your created flyers will appear here.</p>
+    </div>
+
+    <!-- Saved Templates Section -->
+    <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">
+        Saved Templates
+    </h2>
+
+    <!-- Placeholder for Saved Templates -->
+    <div style="width: 70%; min-height: 150px; border: 1px solid #ccc; padding: 20px;">
+        <!-- Future: Loop through saved templates here -->
+        {% comment %} Example:
+        {% for template in saved_templates %}
+            <p>{{ template.name }}</p>
+        {% endfor %}
+        {% endcomment %}
+        <p style="text-align: center; color: gray;">Saved and bookmarked templates will appear here.</p>
+    </div>
+
+</div>
+
+{% endblock %}

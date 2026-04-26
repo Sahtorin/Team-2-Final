@@ -1,31 +1,39 @@
 {% extends "flyer_app/base.html" %}
 
-{% block title %}Home{% endblock %}
-
 {% block content %}
-<h1>Welcome to the Flyer App</h1>
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80vh; text-align: center;">
 
-<p>
-    This web app is for making/sharing event flyers.
-</p>
+    <!-- Welcome Header -->
+    <h1 style="font-size: 3em; margin-bottom: 10px;">
+        WELCOME TO FLYER APP!
+    </h1>
 
-<h2>Recent Flyers</h2>
+    <!-- Divider Line -->
+    <hr style="width: 60%; margin-bottom: 20px;">
 
-{% if flyers %}
-    <ul>
-        {% for flyer in flyers %}
-            <li>
-                <a href="{% url 'flyer_detail' flyer.pk %}">
-                    <strong>{{ flyer.flyer_name }}</strong>
-                </a><br>
-                Artist: {{ flyer.artist_name }}<br>
-                Date: {{ flyer.event_date }}<br>
-                Location: {{ flyer.event_location }}
-            </li>
-            <br>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No flyers have been added.</p>
-{% endif %}
+    <!-- Description Text (slightly shifted left) -->
+    <p style="font-size: 1.2em; max-width: 600px; text-align: left; margin-left: -40px;">
+        This website is dedicated to the easy and quick creation of flyers!
+    </p>
+
+    <!-- Buttons Container -->
+    <div style="display: flex; gap: 40px; margin-top: 30px;">
+
+        <!-- Login Button -->
+        <a href="{% url 'login' %}">
+            <button style="padding: 10px 20px; font-size: 1em; cursor: pointer;">
+                Log In
+            </button>
+        </a>
+
+        <!-- Sign Up Button -->
+         <a href="{% url 'signup' %}">
+            <button style="padding: 10px 20px; font-size: 1em; cursor: pointer;">
+                Sign Up
+            </button>
+        </a>
+
+    </div>
+
+</div>
 {% endblock %}

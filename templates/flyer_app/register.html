@@ -1,8 +1,61 @@
 {% extends "flyer_app/base.html" %}
 
-{% block title %}Register{% endblock %}
-
 {% block content %}
-<h1>Register</h1>
-<p>Register form goes here.</p>
+<div style="display: flex; justify-content: center; align-items: center; height: 85vh;">
+
+    <div style="width: 350px; text-align: center;">
+
+        <!-- Page Title -->
+        <h2 style="margin-bottom: 20px;">Create an Account</h2>
+
+        <!-- Registration Form -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- First Name -->
+            <div style="margin-bottom: 12px; text-align: left;">
+                <label for="first_name">First Name</label><br>
+                <input type="text" name="first_name" id="first_name" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Last Name -->
+            <div style="margin-bottom: 12px; text-align: left;">
+                <label for="last_name">Last Name</label><br>
+                <input type="text" name="last_name" id="last_name" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Username -->
+            <div style="margin-bottom: 12px; text-align: left;">
+                <label for="username">Username</label><br>
+                <input type="text" name="username" id="username" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Password -->
+            <div style="margin-bottom: 12px; text-align: left;">
+                <label for="password1">Password</label><br>
+                <input type="password" name="password1" id="password1" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Confirm Password -->
+            <div style="margin-bottom: 20px; text-align: left;">
+                <label for="password2">Re-enter Password</label><br>
+                <input type="password" name="password2" id="password2" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    style="width: 100%; padding: 10px; cursor: pointer;">
+                Sign Up
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 {% endblock %}

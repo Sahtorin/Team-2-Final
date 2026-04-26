@@ -1,8 +1,39 @@
 {% extends "flyer_app/base.html" %}
 
-{% block title %}Login{% endblock %}
-
 {% block content %}
-<h1>Login</h1>
-<p>Login form goes here.</p>
+<div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+
+    <div style="text-align: center; width: 300px;">
+
+        <!-- Page Title -->
+        <h2 style="margin-bottom: 20px;">Log In</h2>
+
+        <!-- Login Form -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username Field -->
+            <div style="margin-bottom: 15px; text-align: left;">
+                <label for="username">Username</label><br>
+                <input type="text" name="username" id="username" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Password Field -->
+            <div style="margin-bottom: 20px; text-align: left;">
+                <label for="password">Password</label><br>
+                <input type="password" name="password" id="password" required
+                       style="width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    style="width: 100%; padding: 10px; cursor: pointer;">
+                Log In
+            </button>
+        </form>
+
+    </div>
+
+</div>
 {% endblock %}

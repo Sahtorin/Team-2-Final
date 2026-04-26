@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Flyer App{% endblock %}
+
+{% block content %}
+
+<h2>User Flyer Space</h2>
+
+<div class="projects">
+    {% for flyer in user_flyers %}
+        <div class="card flyer-card" data-id="{{ flyer.id }}">
+            <h3>{{ flyer.title }}</h3>
+            <p>{{ flyer.description|truncatewords:10 }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="divider">
+    <span>Public Flyer Space</span>
+</div>
+
+<div class="projects">
+    {% for flyer in public_flyers %}
+        <div class="card flyer-card" data-id="{{ flyer.id }}">
+            <h3>{{ flyer.title }}</h3>
+            <p>{{ flyer.description|truncatewords:10 }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const cards = document.querySelectorAll(".flyer-card");
+
+    cards.forEach(card => {
+        card.addEventListener("click", () => {
+            const id = card.getAttribute("data-id");
+            window.location.href = `/flyer/${id}/`;
+        });
+    });
+</script>
+{% endblock %}
