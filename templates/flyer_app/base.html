@@ -18,6 +18,11 @@
                 <a href="{% url 'home' %}">Home</a>
 
                 {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'profile_detail' %}">Profile</a>
+                    <a href="{% url 'flyer_list' %}">My Flyers</a>
+                    <a href="{% url 'flyer_create' %}">Create Flyer</a>
+
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button type="submit">Logout</button>

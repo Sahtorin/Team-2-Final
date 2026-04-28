@@ -5,6 +5,10 @@
 {% block content %}
 <h1>{{ flyer.flyer_name }}</h1>
 
+{% if flyer.flyer_image %}
+    <img src="{{ flyer.flyer_image.url }}" alt="{{ flyer.flyer_name }}" style="max-width: 300px;">
+{% endif %}
+
 <p><strong>Artist:</strong> {{ flyer.artist_name }}</p>
 
 {% if flyer.event_name %}
@@ -27,7 +31,17 @@
 
 <p><strong>Created By:</strong> {{ flyer.profile.display_name }}</p>
 
+{% if user.is_authenticated and flyer.profile.user == user %}
+    <p>
+        <a href="{% url 'flyer_edit' flyer.pk %}">Edit Flyer</a> |
+        <a href="{% url 'flyer_delete' flyer.pk %}">Delete Flyer</a>
+    </p>
+{% endif %}
+
 <p>
     <a href="{% url 'home' %}">Back to Home</a>
+    {% if user.is_authenticated %}
+        | <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    {% endif %}
 </p>
 {% endblock %}

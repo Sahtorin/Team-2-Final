@@ -3,10 +3,13 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .forms import FlyerForm, ProfileForm, RegisterForm
 from .models import Flyer, Profile
+from datetime import date
 
 #render home.html with flyers from db.
 def home(request):
-    flyers = Flyer.objects.select_related("profile").all()[:6]
+    flyers = Flyer.objects.select_related("profile").filter(
+        event_date__gte=date.today()
+    )[:6]
     return render(request, "flyer_app/home.html", {"flyers": flyers})
 
 #signup/register with redirect
@@ -163,7 +166,7 @@ def flyer_delete(request, pk):
 
     if request.method == "POST":
         flyer.delete()
-        return redirect("flyer_list")
+        return redirect("dashboard")
 
     return render(request, "flyer_app/flyer_confirm_delete.html", {
         "flyer": flyer,
