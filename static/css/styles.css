@@ -49,10 +49,24 @@ header {
     background: darkgrey;
 }
 
-.brand {
-    font-weight: bold;
-    font-size: 1rem;
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
 }
+
+.brand-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/*
+.brand-text{
+
+}
+*/
 
 main {
     max-width: 1000px;

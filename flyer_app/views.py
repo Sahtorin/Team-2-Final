@@ -42,7 +42,7 @@ def register_view(request):
 
 @login_required
 def dashboard(request):
-    profile, created = Profile.objects.get_or_create(
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={"display_name": request.user.username},
     )
@@ -56,7 +56,7 @@ def dashboard(request):
 
 @login_required
 def profile_detail(request):
-    profile, created = Profile.objects.get_or_create(
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={"display_name": request.user.username},
     )
@@ -68,7 +68,7 @@ def profile_detail(request):
 
 @login_required
 def profile_edit(request):
-    profile, created = Profile.objects.get_or_create(
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={"display_name": request.user.username},
     )
@@ -90,7 +90,7 @@ def profile_edit(request):
 
 @login_required
 def flyer_list(request):
-    profile, created = Profile.objects.get_or_create(
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={"display_name": request.user.username},
     )
@@ -108,7 +108,7 @@ def flyer_detail(request, pk):
 
 @login_required
 def flyer_create(request):
-    profile, created = Profile.objects.get_or_create(
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={"display_name": request.user.username},
     )
@@ -133,15 +133,11 @@ def flyer_create(request):
 
 @login_required
 def flyer_edit(request, pk):
-    profile, created = Profile.objects.get_or_create(
-        user=request.user,
-        defaults={"display_name": request.user.username},
-    )
-
-    flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
+    flyer = get_object_or_404(Flyer, pk=pk, profile__user=request.user)
 
     if request.method == "POST":
         form = FlyerForm(request.POST, request.FILES, instance=flyer)
+
         if form.is_valid():
             form.save()
             return redirect("flyer_detail", pk=flyer.pk)
@@ -157,12 +153,7 @@ def flyer_edit(request, pk):
 
 @login_required
 def flyer_delete(request, pk):
-    profile, created = Profile.objects.get_or_create(
-        user=request.user,
-        defaults={"display_name": request.user.username},
-    )
-
-    flyer = get_object_or_404(Flyer, pk=pk, profile=profile)
+    flyer = get_object_or_404(Flyer, pk=pk, profile__user=request.user)
 
     if request.method == "POST":
         flyer.delete()
