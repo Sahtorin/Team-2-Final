@@ -1,8 +1,164 @@
 {% extends "flyer_app/base.html" %}
-
-{% block title %}Profile{% endblock %}
+{% load static %}
 
 {% block content %}
-<h1>Profile Detail</h1>
-<p>Profile info goes here.</p>
+
+<div class="profile-container">
+
+    <!-- Profile Section -->
+    <div class="profile-header">
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+
+        <h1 class="username">{{ user.username }}</h1>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="projects-section">
+        <h2>User Projects:</h2>
+
+        <div class="carousel-wrapper">
+
+            <button class="carousel-btn left" onclick="scrollProjects(-1)">&#10094;</button>
+
+            <div class="projects-carousel" id="projectsCarousel">
+                {% for project in projects %}
+                    <div class="project-card">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        <div class="overlay">
+                            <span>{{ project.title }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="carousel-btn right" onclick="scrollProjects(1)">&#10095;</button>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Styles -->
+<style>
+.profile-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Profile Header */
+.profile-header {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+
+.profile-pic {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.username {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Projects Section */
+.projects-section {
+    margin-top: 20px;
+}
+
+.projects-section h2 {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* Carousel */
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.projects-carousel {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Project Card */
+.project-card {
+    min-width: 250px;
+    height: 150px;
+    position: relative;
+    cursor: pointer;
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Hover Overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.project-card:hover .overlay {
+    opacity: 1;
+}
+
+/* Buttons */
+.carousel-btn {
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.carousel-btn.left {
+    margin-right: 10px;
+}
+
+.carousel-btn.right {
+    margin-left: 10px;
+}
+
+</style>
+
+<!-- Script -->
+<script>
+function scrollProjects(direction) {
+    const container = document.getElementById("projectsCarousel");
+    const scrollAmount = 300;
+
+    container.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+</script>
+
 {% endblock %}
