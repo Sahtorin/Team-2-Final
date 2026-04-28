@@ -1,20 +1,33 @@
 {% extends "flyer_app/base.html" %}
 
-{% block title %}Flyers{% endblock %}
+{% block title %}My Flyers{% endblock %}
 
 {% block content %}
-<h1>Flyer List</h1>
+<h1>My Flyers</h1>
+
+<p>
+    <a href="{% url 'flyer_create' %}">Create New Flyer</a>
+</p>
+
 {% if flyers %}
-     <ul>
+    <ul>
         {% for flyer in flyers %}
-              <li>
-                <a href=""{% url 'flyer_detail' flyer.pk %}">
-                  {{flyer.flyer_name}}
-                </a>
-              </li>
-        {% endfor %}      
-     </ul>
+            <li>
+                <strong>{{ flyer.flyer_name }}</strong><br>
+                {{ flyer.event_date }} - {{ flyer.event_location }}<br>
+
+                <a href="{% url 'flyer_detail' flyer.pk %}">View</a> |
+                <a href="{% url 'flyer_edit' flyer.pk %}">Edit</a> |
+                <a href="{% url 'flyer_delete' flyer.pk %}">Delete</a>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
 {% else %}
-   <p>NO flyers found.</p>
-{% endif %}     
+    <p>No flyers found.</p>
+{% endif %}
+
+<p>
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</p>
 {% endblock %}
