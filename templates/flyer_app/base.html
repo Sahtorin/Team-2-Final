@@ -24,6 +24,34 @@
 
     </div>
 </header>
+    <header>
+        <div class="nav">
+            <div class="brand">
+                <a href="{% url 'home' %}" class="brand-link">
+                    <img src="{% static 'images/flyer-logo.svg' %}" alt="Flyer App logo" class="brand-logo">
+                </a>
+            </div>
+
+            <div>
+                <a href="{% url 'home' %}">Home</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'profile_detail' %}">Profile</a>
+                    <a href="{% url 'flyer_list' %}">My Flyers</a>
+                    <a href="{% url 'flyer_create' %}">Create Flyer</a>
+
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
 
 <!-- Main Content Stuff -->
 <div class="container">

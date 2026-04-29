@@ -21,6 +21,37 @@ class Profile(models.Model):
 
 class Flyer(models.Model):
 
+    BACKGROUND_COLOR_CHOICES = [
+        ("#000000", "Black"),
+        ("#FFFFFF", "White"),
+        ("#212529", "Dark Gray"),
+        ("#F8F9FA", "Light Gray"),
+        ("#DC3545", "Red"),
+        ("#0D6EFD", "Blue"),
+        ("#198754", "Green"),
+        ("#FFC107", "Gold"),
+        ("#6F42C1", "Purple"),
+    ]
+
+    FONT_COLOR_CHOICES = [
+        ("#FFFFFF", "White"),
+        ("#000000", "Black"),
+        ("#DC3545", "Red"),
+        ("#0D6EFD", "Blue"),
+        ("#198754", "Green"),
+        ("#FFC107", "Gold"),
+        ("#6F42C1", "Purple"),
+    ]
+
+    FONT_FAMILY_CHOICES = [
+        ("Arial", "Arial"),
+        ("Georgia", "Georgia"),
+        ("Impact", "Impact"),
+        ("Times New Roman", "Times New Roman"),
+        ("Verdana", "Verdana"),
+        ("Courier New", "Courier New"),
+    ]
+
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="flyers")
     artist_name = models.CharField(max_length=50)
     flyer_name = models.CharField(max_length=50)
@@ -30,9 +61,25 @@ class Flyer(models.Model):
     cover_charge = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     event_link = models.URLField(blank=True)
     flyer_image = models.ImageField(upload_to="flyers/", blank=True, null=True)
-    background_color = models.CharField(max_length=20, default="#000000")
-    font_color = models.CharField(max_length=20, default="#FFFFFF")
-    font_family = models.CharField(max_length=50, default="Arial")
+
+    background_color = models.CharField(
+        max_length=20,
+        choices=BACKGROUND_COLOR_CHOICES,
+        default="#000000"
+    )
+
+    font_color = models.CharField(
+        max_length=20,
+        choices=FONT_COLOR_CHOICES,
+        default="#FFFFFF"
+    )
+
+    font_family = models.CharField(
+        max_length=50,
+        choices=FONT_FAMILY_CHOICES,
+        default="Arial"
+    )
+
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 

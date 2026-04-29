@@ -7,6 +7,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("profile/", views.profile_detail, name="profile_detail"),
     path("profile/edit/", views.profile_edit, name="profile_edit"),
+    path("profile/delete/", views.profile_delete, name="profile_delete"),
     path("flyers/", views.flyer_list, name="flyer_list"),
     path("flyers/create/", views.flyer_create, name="flyer_create"),
     path("flyers/<int:pk>/", views.flyer_detail, name="flyer_detail"),

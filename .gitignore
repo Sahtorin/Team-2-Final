@@ -17,7 +17,7 @@ staticfiles/
 
 # OS
 .DS_Store
-THumbs.db
+Thumbs.db*
 Desktop.ini
 
 # Visual Studio

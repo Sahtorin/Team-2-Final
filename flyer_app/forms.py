@@ -33,4 +33,13 @@ class FlyerForm(forms.ModelForm):
             "event_date",
             "event_location",
             "cover_charge",
+            "event_link",
+            "flyer_image",
+            "background_color",
+            "font_color",
+            "font_family",
         )
+
+        widgets = {
+            "event_date": forms.DateInput(attrs={"type": "date"}),
+        }

@@ -4,5 +4,17 @@
 
 {% block content %}
 <h1>Edit Profile</h1>
-<p>Profile form goes here.</p>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Profile</button>
+</form>
+
+<p>
+    <a href="{% url 'profile_detail' %}">Cancel</a>
+</p>
+<p>
+    <a href="{% url 'profile_delete' %}">Delete Account</a>
+</p>
 {% endblock %}
