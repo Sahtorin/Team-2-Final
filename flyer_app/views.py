@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .forms import FlyerForm, ProfileForm, RegisterForm
@@ -89,6 +89,26 @@ def profile_edit(request):
 
 
 @login_required
+def profile_delete(request):
+    profile, _ = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"display_name": request.user.username},
+    )
+    #safer delete method. only delete on POST
+    if request.method == "POST":
+        user = request.user
+        #logout to avoid session bug
+        logout(request)
+        user.delete()
+        return redirect("home")
+    #render number flyers being deleted on confirm delete redirect
+    return render(request, "flyer_app/profile_confirm_delete.html", {
+        "profile": profile,
+        "flyer_count": profile.flyers.count(),
+    })
+
+
+@login_required
 def flyer_list(request):
     profile, _ = Profile.objects.get_or_create(
         user=request.user,
@@ -124,7 +144,7 @@ def flyer_create(request):
 
     else:
         form = FlyerForm()
-
+    
     return render(request, "flyer_app/flyer_form.html", {
         "form": form,
         "page_title": "Create Flyer",
