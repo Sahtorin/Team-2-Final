@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Flyer App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% if flyer.font_family %}
+    <link href="https://fonts.googleapis.com/css2?family={{ flyer.font_family|urlencode }}&display=swap" rel="stylesheet">
+    {% endif %}
 </head>
 <body>
     <header>
@@ -16,22 +19,20 @@
                 </a>
             </div>
 
-            <div>
+            <div class="nav-links">
                 <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'flyer_list' %}">Flyers</a>
 
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard' %}">Dashboard</a>
-                    <a href="{% url 'profile_detail' %}">Profile</a>
-                    <a href="{% url 'flyer_list' %}">My Flyers</a>
-                    <a href="{% url 'flyer_create' %}">Create Flyer</a>
+                    <a href="{% url 'flyer_create' %}">Create</a>
 
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
+                <form method="post" action="{% url 'logout' %}">    
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
                 {% else %}
                     <a href="{% url 'login' %}">Login</a>
-                    <a href="{% url 'register' %}">Register</a>
                 {% endif %}
             </div>
         </div>
