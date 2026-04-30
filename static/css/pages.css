@@ -1,0 +1,48 @@
+
+/* FLYER PAGE */
+.flyer-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* FLYER CARD */
+.flyer-container {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* IMAGE */
+.flyer-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.flyer-title {
+    font-size: 2rem;
+}
+
+.flyer-text {
+    margin: 5px 0;
+}
+
+/* BUTTONS */
+.flyer-actions {
+    margin-top: 15px;
+}
+
+.flyer-actions button {
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* OWNER LINKS */
+.flyer-owner-actions {
+    margin-top: 10px;
+}

@@ -34,7 +34,7 @@
 
         {% if flyer.event_link %}
             <p>
-                <a href="{{ flyer.event_link }}" target="_blank">View Event</a>
+                <a href="{{ flyer.event_link }}" target="_blank" rel="noopener noreferrer">View Event</a>
             </p>
         {% endif %}
 
@@ -42,8 +42,8 @@
 
     <!-- ACTIONS -->
     <div class="flyer-actions">
-        <button onclick="copyLink()">Copy Link</button>
-        <button onclick="downloadFlyer()">Download</button>
+        <button type="button" onclick="copyLink()">Copy Link</button>
+        <button type="button" onclick="downloadFlyer()">Download</button>
     </div>
 
     <!-- OWNER ACTIONS -->
