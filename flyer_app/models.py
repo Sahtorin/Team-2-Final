@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Profile(models.Model):
@@ -22,32 +22,34 @@ class Profile(models.Model):
 
 class Flyer(models.Model):
     BACKGROUND_COLOR_CHOICES = [
-        ("#2b241f", "Ivory Black"),
-        ("#e2dfd7", "Bone White"),
-        ("#f1a512", "Golden Orange"),
-        ("#dd4111", "Burnt Orange"),
+        ("#2b241f", "Worn"),
+        ("#e2dfd7", "Bone"),
+        ("#f1a512", "Cheese"),
+        ("#dd4111", "Rust"),
         ("#8c0027", "Oxblood"),
-        ("#2baf90", "Jungle Green"),
-        ("#a1d4b1", "Celadon"),
+        ("#2baf90", "Island"),
+        ("#a1d4b1", "Sage"),
     ]
 
     FONT_COLOR_CHOICES = [
-        ("#2b241f", "Ivory Black"),
-        ("#e2dfd7", "Bone White"),
-        ("#f1a512", "Golden Orange"),
-        ("#dd4111", "Burnt Orange"),
+        ("#2b241f", "Worn"),
+        ("#e2dfd7", "Bone"),
+        ("#f1a512", "Cheese"),
+        ("#dd4111", "Rust"),
         ("#8c0027", "Oxblood"),
-        ("#2baf90", "Jungle Green"),
-        ("#a1d4b1", "Celadon"),
+        ("#2baf90", "Island"),
+        ("#a1d4b1", "Sage"),
     ]
 
     FONT_FAMILY_CHOICES = [
-        ("Playfair Display", "Playfair Display"),
-        ("Lora", "Lora"),
-        ("Libre Baskerville", "Libre Baskerville"),
-        ("Cormorant Garamond", "Cormorant Garamond"),
-        ("Merriweather", "Merriweather"),
-        ("Cinzel", "Cinzel"),
+        ("'Bebas Neue', sans-serif", "Default"),
+        ("'Climate Crisis', sans-serif", "Heavy"),
+        ("Crushed, sans-serif", "Retro"),
+        ("Lobster, cursive", "Script"),
+        ("'Playwrite NO', cursive", "Written"),
+        ("'Playwrite NZ Guides', cursive", "Sketched"),
+        ("'Syne Mono', monospace", "Type"),
+        ("'Unica One', sans-serif", "Poster"),
     ]
 
     profile = models.ForeignKey(
@@ -65,15 +67,15 @@ class Flyer(models.Model):
     flyer_image = models.ImageField(upload_to="flyers/", blank=True, null=True)
 
     background_color = models.CharField(
-        max_length=20, choices=BACKGROUND_COLOR_CHOICES, default="#000000"
+        max_length=20, choices=BACKGROUND_COLOR_CHOICES, default="#e2dfd7"
     )
 
     font_color = models.CharField(
-        max_length=20, choices=FONT_COLOR_CHOICES, default="#FFFFFF"
+        max_length=20, choices=FONT_COLOR_CHOICES, default="#2b241f"
     )
 
     font_family = models.CharField(
-        max_length=50, choices=FONT_FAMILY_CHOICES, default="Arial"
+        max_length=50, choices=FONT_FAMILY_CHOICES, default="Bebas Neue"
     )
 
     created = models.DateTimeField(auto_now_add=True)
