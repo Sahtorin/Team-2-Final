@@ -1,13 +1,18 @@
 {% extends "flyer_app/base.html" %}
-
 {% block title %}Delete Flyer{% endblock %}
-
 {% block content %}
-<h1>Delete Flyer</h1>
-<p>Are you sure you want to delete this flyer?</p>
-
-<form method="post">
+  <h1>Delete Flyer</h1>
+  <p>Are you sure you want to delete this flyer?</p>
+  <p>
+    <strong>{{ flyer.flyer_name }}</strong>
+    <br>
+    {{ flyer.event_date }} - {{ flyer.event_location }}
+  </p>
+  <form method="post">
     {% csrf_token %}
     <button type="submit">Delete</button>
-</form>
+  </form>
+  <p>
+    <a href="{% url 'flyer_detail' flyer.pk %}">Cancel</a>
+  </p>
 {% endblock %}

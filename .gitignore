@@ -27,3 +27,6 @@ Desktop.ini
 # Test
 .pytest_cache/
 .coverage
+
+# Tool
+.ruff_cache

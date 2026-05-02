@@ -1,0 +1,22 @@
+{% extends "flyer_app/base.html" %}
+{% block title %}Delete Account{% endblock %}
+{% block content %}
+  <h1>Delete Account</h1>
+  <div>
+    <p>
+      <strong>Are you sure you want to delete this account?</strong>
+    </p>
+    <p>This will permanently delete:</p>
+    <ul>
+      <li>Profile: {{ profile.display_name }}</li>
+      <li>Number of flyers: {{ flyer_count }}</li>
+    </ul>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes I'm sure</button>
+  </form>
+  <p>
+    <a href="{% url 'profile_detail' %}">Cancel</a>
+  </p>
+{% endblock %}

@@ -1,12 +1,12 @@
 {% extends "flyer_app/base.html" %}
-
-{% block title %}Register{% endblock %}
-
+{% block title %}
+  Register
+{% endblock title %}
 {% block content %}
-<h1>Register</h1>
-<form method="post">
+  <h1>Register</h1>
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Register</button>
-</form>
-{% endblock %}
+  </form>
+{% endblock content %}

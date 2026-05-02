@@ -50,56 +50,66 @@ class ModelTests(TestCase):
 
 class RegisterFormTests(TestCase):
     def test_register_form_valid_data(self):
-        form = RegisterForm(data={
-            "username": "josh",
-            "email": "josh@example.com",
-            "password1": "GoodPass123!",
-            "password2": "GoodPass123!",
-        })
+        form = RegisterForm(
+            data={
+                "username": "josh",
+                "email": "josh@example.com",
+                "password1": "GoodPass123!",
+                "password2": "GoodPass123!",
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
     def test_register_form_requires_matching_passwords(self):
-        form = RegisterForm(data={
-            "username": "josh",
-            "email": "josh@example.com",
-            "password1": "GoodPass123!",
-            "password2": "BadPass123!",
-        })
+        form = RegisterForm(
+            data={
+                "username": "josh",
+                "email": "josh@example.com",
+                "password1": "GoodPass123!",
+                "password2": "BadPass123!",
+            }
+        )
 
         self.assertFalse(form.is_valid())
 
 
 class ProfileFormTests(TestCase):
     def test_profile_form_valid_data(self):
-        form = ProfileForm(data={
-            "display_name": "Joshua",
-            "bio": "I'm making a backend",
-            "profile_link": "https://google.com",
-        })
+        form = ProfileForm(
+            data={
+                "display_name": "Joshua",
+                "bio": "I'm making a backend",
+                "profile_link": "https://google.com",
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
 
 class FlyerFormTests(TestCase):
     def test_flyer_form_valid_data(self):
-        form = FlyerForm(data={
-            "artist_name": "The Devil Makes Three",
-            "flyer_name": "Friday Night Show",
-            "event_name": "Live at The Coterie",
-            "event_date": "2026-05-01",
-            "event_location": "The Coterie",
-            "cover_charge": "10.00",
-        })
+        form = FlyerForm(
+            data={
+                "artist_name": "The Devil Makes Three",
+                "flyer_name": "Friday Night Show",
+                "event_name": "Live at The Coterie",
+                "event_date": "2026-05-01",
+                "event_location": "The Coterie",
+                "cover_charge": "10.00",
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
     def test_flyer_form_requires_required_fields(self):
-        form = FlyerForm(data={
-            "artist_name": "",
-            "flyer_name": "",
-            "event_date": "",
-            "event_location": "",
-        })
+        form = FlyerForm(
+            data={
+                "artist_name": "",
+                "flyer_name": "",
+                "event_date": "",
+                "event_location": "",
+            }
+        )
 
         self.assertFalse(form.is_valid())
