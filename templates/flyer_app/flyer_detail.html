@@ -4,7 +4,9 @@
 
 {% block content %}
 <h1>{{ flyer.flyer_name }}</h1>
-
+{% if flyer.flyer_image %}
+    <img src="{{ flyer.flyer_image.url }}" alt="{{ flyer.flyer_name }}" width="300">
+{% endif %}
 <p><strong>Artist:</strong> {{ flyer.artist_name }}</p>
 
 {% if flyer.event_name %}
