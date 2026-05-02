@@ -1,65 +1,43 @@
 {% extends "flyer_app/base.html" %}
-
 {% block title %}{{ flyer.flyer_name }}{% endblock %}
-
 {% block content %}
-<div class="flyer-page">
-
+  <div class="flyer-page">
     <!-- FLYER -->
     <div class="flyer-container"
-         style="
-            font-family: {{ flyer.font_family }};
-            color: {{ flyer.font_color }};
-            background-color: {{ flyer.background_color }};
-         ">
-
-        <h1 class="flyer-title">{{ flyer.flyer_name }}</h1>
-
-        {% if flyer.flyer_image %}
-            <img src="{{ flyer.flyer_image.url }}" class="flyer-image">
-        {% endif %}
-
-        <p class="flyer-text">{{ flyer.artist_name }}</p>
-
-        {% if flyer.event_name %}
-            <p class="flyer-text">{{ flyer.event_name }}</p>
-        {% endif %}
-
-        <p class="flyer-text">{{ flyer.event_date }}</p>
-        <p class="flyer-text">{{ flyer.event_location }}</p>
-
-        {% if flyer.cover_charge %}
-            <p class="flyer-text">${{ flyer.cover_charge }}</p>
-        {% endif %}
-
-        {% if flyer.event_link %}
-            <p>
-                <a href="{{ flyer.event_link }}" target="_blank" rel="noopener noreferrer">View Event</a>
-            </p>
-        {% endif %}
-
+         style="font-family: {{ flyer.font_family }};
+                color: {{ flyer.font_color }};
+                background-color: {{ flyer.background_color }}">
+      <h1 class="flyer-title">{{ flyer.flyer_name }}</h1>
+      {% if flyer.flyer_image %}<img src="{{ flyer.flyer_image.url }}" class="flyer-image">{% endif %}
+      <p class="flyer-text">{{ flyer.artist_name }}</p>
+      {% if flyer.event_name %}<p class="flyer-text">{{ flyer.event_name }}</p>{% endif %}
+      <p class="flyer-text">{{ flyer.event_date }}</p>
+      <p class="flyer-text">{{ flyer.event_location }}</p>
+      {% if flyer.cover_charge %}<p class="flyer-text">${{ flyer.cover_charge }}</p>{% endif %}
+      {% if flyer.event_link %}
+        <p>
+          <a href="{{ flyer.event_link }}"
+             target="_blank"
+             rel="noopener noreferrer">View Event</a>
+        </p>
+      {% endif %}
     </div>
-
     <!-- ACTIONS -->
     <div class="flyer-actions">
-        <button type="button" onclick="copyLink()">Copy Link</button>
-        <button type="button" onclick="downloadFlyer()">Download</button>
+      <button type="button" onclick="copyLink()">Copy Link</button>
+      <button type="button" onclick="downloadFlyer()">Download</button>
     </div>
-
     <!-- OWNER ACTIONS -->
     {% if user.is_authenticated and flyer.profile.user == user %}
-    <div class="flyer-owner-actions">
+      <div class="flyer-owner-actions">
         <a href="{% url 'flyer_edit' flyer.pk %}">Edit</a>
         <a href="{% url 'flyer_delete' flyer.pk %}">Delete</a>
-    </div>
+      </div>
     {% endif %}
-
-</div>
-
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-<script>
+  </div>
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
 function copyLink() {
     navigator.clipboard.writeText(window.location.href);
     alert("Link copied!");
@@ -75,6 +53,5 @@ function downloadFlyer() {
         link.click();
     });
 }
-</script>
-
+  </script>
 {% endblock %}

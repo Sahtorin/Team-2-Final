@@ -1,31 +1,108 @@
 {% extends "flyer_app/base.html" %}
-
-{% block title %}Home{% endblock %}
-
+{% load static %}
+{% block title %}
+  Home
+{% endblock title %}
 {% block content %}
-<h1>Welcome to the Flyer App</h1>
-
-<p>
-    This web app is for making/sharing event flyers.
-</p>
-
-<h2>Upcoming Flyers</h2>
-
-{% if flyers %}
-    <ul>
+  <section class="home-showcase pattern-background">
+    <div class="split-layout">
+      <div class="intro-message">
+        <p class="section-label">Flyer App</p>
+        <h1>
+          <span class="highlight-green">Create</span>
+          and
+          <span class="highlight-orange">share</span>
+          <span class="heading-line">event flyers.</span>
+        </h1>
+        <p>Create simple event flyers, save them, and share them with a link.</p>
+        <div class="action-links">
+          {% if user.is_authenticated %}
+            <a class="underline-action main-action" href="{% url 'flyer_create' %}">Create Flyer</a>
+            <a class="underline-action" href="{% url 'dashboard' %}">Dashboard</a>
+          {% else %}
+            <a class="underline-action main-action" href="{% url 'register' %}">Get Started</a>
+            <a class="underline-action" href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="art-block">
+        <img src="{% static 'images/flyer-logo-alt.svg' %}"
+             alt="Flyer App pop art logo"
+             width="320"
+             height="320" />
+      </div>
+    </div>
+    <div class="icon-row">
+      <div class="icon-item">
+        <img src="{% static 'images/user-icon.svg' %}"
+             alt=""
+             aria-hidden="true"
+             width="48"
+             height="48" />
+        <span class="full-icon-label">Create a Flyer</span>
+        <span class="short-icon-label">Create</span>
+      </div>
+      <div class="icon-item">
+        <img src="{% static 'images/download-icon.svg' %}"
+             alt=""
+             aria-hidden="true"
+             width="48"
+             height="48" />
+        <span class="full-icon-label">Save a Copy</span>
+        <span class="short-icon-label">Save</span>
+      </div>
+      <div class="icon-item">
+        <img src="{% static 'images/copy-icon.svg' %}"
+             alt=""
+             aria-hidden="true"
+             width="48"
+             height="48" />
+        <span class="full-icon-label">Share the Link</span>
+        <span class="short-icon-label">Share</span>
+      </div>
+    </div>
+  </section>
+  <section class="home-upcoming">
+    <div class="section-heading">
+      <p class="section-label">Upcoming Shows</p>
+      <h2>Featured Flyers</h2>
+    </div>
+    {% if flyers %}
+      <div class="flyer-grid">
         {% for flyer in flyers %}
-            <li>
-                <a href="{% url 'flyer_detail' flyer.pk %}">
-                    <strong>{{ flyer.flyer_name }}</strong>
-                </a><br>
-                Artist: {{ flyer.artist_name }}<br>
-                Date: {{ flyer.event_date }}<br>
-                Location: {{ flyer.event_location }}
-            </li>
-            <br>
+          <article class="flyer-card">
+            <a href="{% url 'flyer_detail' flyer.pk %}">
+              <div class="flyer-image-area pattern-background">
+                {% if flyer.flyer_image %}
+                  <img src="{{ flyer.flyer_image.url }}"
+                       alt="{{ flyer.flyer_name }} flyer image"
+                       width="600"
+                       height="400" />
+                {% else %}
+                  <div class="flyer-placeholder">
+                    <img src="{% static 'images/camera-icon.svg' %}"
+                         alt=""
+                         aria-hidden="true"
+                         width="48"
+                         height="48" />
+                    <span>No image uploaded</span>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="flyer-card-text">
+                <p class="flyer-date">{{ flyer.event_date|date:"M j, Y" }}</p>
+                <h3>{{ flyer.flyer_name }}</h3>
+                <p>{{ flyer.artist_name }}</p>
+                {% if flyer.event_location %}<p class="flyer-location">{{ flyer.event_location }}</p>{% endif %}
+              </div>
+            </a>
+          </article>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>No flyers have been added.</p>
-{% endif %}
-{% endblock %}
+      </div>
+    {% else %}
+      <div class="home-empty">
+        <p>No upcoming shows have been added yet.</p>
+      </div>
+    {% endif %}
+  </section>
+{% endblock content %}

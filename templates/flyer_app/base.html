@@ -1,89 +1,79 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Flyer App{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+          content="Create, save, and share custom event flyers with Flyer App." />
+    <meta name="keywords"
+          content="flyer app, event flyers, band flyers, show flyers, event sharing" />
+    <title>
+      {% block title %}
+        Flyer App
+      {% endblock title %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}" />
+  </head>
+  <body>
     <header>
-        <nav class="site-nav">
-            <div class="brand">
-                <a href="{% url 'home' %}" class="brand-link">
-                    <img src="{% static 'images/flyer-logo.svg' %}" alt="Flyer App logo" class="brand-logo">
-                    <span class="brand-text">
-                        <span class="brand-letter-f">F</span>lyer
-                        <span class="brand-letter-a">A</span>pp
-                    </span>
-                </a>
-            </div>
-
-            <div class="nav-links">
-                <a class="menu-link {% if request.resolver_match.url_name == 'home' %}active-nav-link{% endif %}" 
-                href="{% url 'home' %}">
-                    Home
-                </a>
-
-                {% if user.is_authenticated %}
-                    <a class="menu-link {% if request.resolver_match.url_name == 'dashboard' %}active-nav-link{% endif %}" 
-                    href="{% url 'dashboard' %}">
-                        Dashboard
-                    </a>
-
-                    <a class="menu-link {% if request.resolver_match.url_name == 'profile_detail' or request.resolver_match.url_name == 'profile_edit' %}active-nav-link{% endif %}" 
-                    href="{% url 'profile_detail' %}">
-                        Profile
-                    </a>
-
-                    <a class="menu-link {% if request.resolver_match.url_name == 'flyer_list' %}active-nav-link{% endif %}" 
-                    href="{% url 'flyer_list' %}">
-                        My Flyers
-                    </a>
-
-                    <a class="nav-main-button {% if request.resolver_match.url_name == 'flyer_create' %}active-nav-main{% endif %}" 
-                    href="{% url 'flyer_create' %}">
-                        Create Flyer
-                    </a>
-
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class="nav-logout-button" type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a class="menu-link {% if request.resolver_match.url_name == 'login' %}active-nav-link{% endif %}" 
-                    href="{% url 'login' %}">
-                        Login
-                    </a>
-
-                    <a class="nav-main-button {% if request.resolver_match.url_name == 'register' %}active-nav-main{% endif %}" 
-                    href="{% url 'register' %}">
-                        Register
-                    </a>
-                {% endif %}
-            </div>
-        </nav>
+      <nav class="site-nav">
+        <div class="brand">
+          <a href="{% url 'home' %}" class="brand-link">
+            <img src="{% static 'images/flyer-logo.svg' %}"
+                 alt="Flyer App logo"
+                 class="brand-logo"
+                 width="60"
+                 height="60" />
+            <span class="brand-text">
+              <span class="brand-letter-f">F</span>lyer
+              <span class="brand-letter-a">A</span>pp
+            </span>
+          </a>
+        </div>
+        <div class="nav-links">
+          <a class="menu-link {% if request.resolver_match.url_name == 'home' %}active-nav-link{% endif %}"
+             href="{% url 'home' %}">Home</a>
+          {% if user.is_authenticated %}
+            <a class="menu-link {% if request.resolver_match.url_name == 'dashboard' %}active-nav-link{% endif %}"
+               href="{% url 'dashboard' %}">Dashboard</a>
+            <a class="menu-link {% if request.resolver_match.url_name == 'profile_detail' or request.resolver_match.url_name == 'profile_edit' %}active-nav-link{% endif %}"
+               href="{% url 'profile_detail' %}">Profile</a>
+            <a class="menu-link {% if request.resolver_match.url_name == 'flyer_list' %}active-nav-link{% endif %}"
+               href="{% url 'flyer_list' %}">My Flyers</a>
+            <a class="nav-main-button {% if request.resolver_match.url_name == 'flyer_create' %}active-nav-main{% endif %}"
+               href="{% url 'flyer_create' %}">Create Flyer</a>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button class="nav-logout-button" type="submit">Logout</button>
+            </form>
+          {% else %}
+            <a class="menu-link {% if request.resolver_match.url_name == 'login' %}active-nav-link{% endif %}"
+               href="{% url 'login' %}">Login</a>
+            <a class="nav-main-button {% if request.resolver_match.url_name == 'register' %}active-nav-main{% endif %}"
+               href="{% url 'register' %}">Register</a>
+          {% endif %}
+        </div>
+      </nav>
     </header>
-
     <main class="main-content">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-
-        {% block content %}{% endblock %}
+      {% if messages %}
+        {% for message in messages %}<div class="message">{{ message }}</div>{% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock content %}
     </main>
     <footer class="site-footer">
-        <img src="{% static 'images/flyer-logo-footer.svg' %}" alt="Flyer App logo" class="footer-art">
-
-        <p class="footer-text">
-            Flyer App &copy; 2026
-        </p>
+      <img src="{% static 'images/flyer-logo-footer.svg' %}"
+           alt="Flyer App logo"
+           class="footer-art"
+           width="90"
+           height="90" />
+      <p class="footer-text">Flyer App © 2026</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

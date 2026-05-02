@@ -1,31 +1,30 @@
 {% extends "flyer_app/base.html" %}
-
 {% block title %}Profile{% endblock %}
-
 {% block content %}
-<h1>Profile</h1>
-
-{% if profile.profile_image %}
-    <img src="{{ profile.profile_image.url }}" alt="{{ profile.display_name }}" style="max-width: 200px;">
-{% endif %}
-
-<p><strong>Display Name:</strong> {{ profile.display_name }}</p>
-
-{% if profile.bio %}
-    <p><strong>Bio:</strong> {{ profile.bio }}</p>
-{% endif %}
-
-{% if profile.profile_link %}
+  <h1>Profile</h1>
+  {% if profile.profile_image %}
+    <img src="{{ profile.profile_image.url }}"
+         alt="{{ profile.display_name }}"
+         style="max-width: 200px">
+  {% endif %}
+  <p>
+    <strong>Display Name:</strong> {{ profile.display_name }}
+  </p>
+  {% if profile.bio %}
     <p>
-        <strong>Profile Link:</strong>
-        <a href="{{ profile.profile_link }}" target="_blank" rel="noopener noreferrer">
-            {{ profile.profile_link }}
-        </a>
+      <strong>Bio:</strong> {{ profile.bio }}
     </p>
-{% endif %}
-
-<p>
+  {% endif %}
+  {% if profile.profile_link %}
+    <p>
+      <strong>Profile Link:</strong>
+      <a href="{{ profile.profile_link }}"
+         target="_blank"
+         rel="noopener noreferrer">{{ profile.profile_link }}</a>
+    </p>
+  {% endif %}
+  <p>
     <a href="{% url 'profile_edit' %}">Edit Profile</a> |
     <a href="{% url 'dashboard' %}">Back to Dashboard</a>
-</p>
+  </p>
 {% endblock %}

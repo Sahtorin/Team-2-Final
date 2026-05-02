@@ -1,17 +1,13 @@
 {% extends "flyer_app/base.html" %}
-
 {% block title %}{{ page_title }}{% endblock %}
-
 {% block content %}
-<h1>{{ page_title }}</h1>
-
-<form method="post" enctype="multipart/form-data">
+  <h1>{{ page_title }}</h1>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save Flyer</button>
-</form>
-
-<p>
+  </form>
+  <p>
     <a href="{% url 'dashboard' %}">Cancel</a>
-</p>
+  </p>
 {% endblock %}

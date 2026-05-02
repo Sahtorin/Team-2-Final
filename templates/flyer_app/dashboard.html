@@ -1,37 +1,35 @@
 {% extends "flyer_app/base.html" %}
-
-{% block title %}Dashboard{% endblock %}
-
+{% block title %}
+  Dashboard
+{% endblock title %}
 {% block content %}
-<h1>Dashboard</h1>
-
-<p>Welcome, {{ profile.display_name }}.</p>
-
-<p>
+  <h1>Dashboard</h1>
+  <p>Welcome, {{ profile.display_name }}.</p>
+  <p>
     <a href="{% url 'profile_detail' %}">View Profile</a> |
     <a href="{% url 'profile_edit' %}">Edit Profile</a> |
     <a href="{% url 'flyer_create' %}">Create New Flyer</a>
-</p>
-
-<h2>Your Flyers</h2>
-
-{% if flyers %}
+  </p>
+  <h2>Your Flyers</h2>
+  {% if flyers %}
     <ul>
-        {% for flyer in flyers %}
-            <li>
-                <strong>{{ flyer.flyer_name }}</strong><br>
-                {{ flyer.event_date }} - {{ flyer.event_location }}<br>
-
-                <a href="{% url 'flyer_detail' flyer.pk %}">View</a> |
-                <a href="{% url 'flyer_edit' flyer.pk %}">Edit</a> |
-                <a href="{% url 'flyer_delete' flyer.pk %}">Delete</a>
-            </li>
-            <br>
-        {% endfor %}
+      {% for flyer in flyers %}
+        <li>
+          <strong>{{ flyer.flyer_name }}</strong>
+          <br />
+          {{ flyer.event_date }} - {{ flyer.event_location }}
+          <br />
+          <a href="{% url 'flyer_detail' flyer.pk %}">View</a> |
+          <a href="{% url 'flyer_edit' flyer.pk %}">Edit</a> |
+          <a href="{% url 'flyer_delete' flyer.pk %}">Delete</a>
+        </li>
+        <br />
+      {% endfor %}
     </ul>
-{% else %}
+  {% else %}
     <p>You have not created any flyers yet.</p>
-    <p><a href="{% url 'flyer_create' %}">Create your first flyer</a></p>
-{% endif %}
-
-{% endblock %}
+    <p>
+      <a href="{% url 'flyer_create' %}">Create your first flyer</a>
+    </p>
+  {% endif %}
+{% endblock content %}
