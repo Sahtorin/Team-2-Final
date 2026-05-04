@@ -1,12 +1,14 @@
-from django.contrib.auth import login, logout
-from django.shortcuts import redirect, get_object_or_404, render
-from django.contrib.auth.decorators import login_required
-from .forms import FlyerForm, ProfileForm, RegisterForm
-from .models import Flyer, Profile
 from datetime import date
 
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
-# render home.html with flyers from db.
+from .forms import FlyerForm, ProfileForm, RegisterForm
+from .models import Flyer, Profile
+
+
 def home(request):
     flyers = Flyer.objects.select_related("profile").filter(
         event_date__gte=date.today()
@@ -14,7 +16,6 @@ def home(request):
     return render(request, "flyer_app/home.html", {"flyers": flyers})
 
 
-# signup/register with redirect
 def register_view(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
@@ -22,24 +23,22 @@ def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
 
-        # saves Django User
         if form.is_valid():
             user = form.save(commit=False)
             user.email = form.cleaned_data["email"]
             user.save()
 
-            # makes matching profile, default profile display_name to User username
             Profile.objects.get_or_create(
                 user=user,
                 defaults={"display_name": user.username},
             )
 
-            # login immediately and redirects
             login(request, user)
+            messages.success(request, "Account created successfully!")
             return redirect("dashboard")
-    # if not POST, makes blank form, render register.html
     else:
         form = RegisterForm()
+
     return render(request, "flyer_app/register.html", {"form": form})
 
 
@@ -90,8 +89,8 @@ def profile_edit(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated successfully!")
             return redirect("profile_detail")
-
     else:
         form = ProfileForm(instance=profile)
 
@@ -110,14 +109,14 @@ def profile_delete(request):
         user=request.user,
         defaults={"display_name": request.user.username},
     )
-    # safer delete method. only delete on POST
+
     if request.method == "POST":
         user = request.user
-        # logout to avoid session bug
         logout(request)
         user.delete()
+        messages.success(request, "Profile deleted successfully!")
         return redirect("home")
-    # render number flyers being deleted on confirm delete redirect
+
     return render(
         request,
         "flyer_app/profile_confirm_delete.html",
@@ -165,8 +164,8 @@ def flyer_create(request):
             flyer = form.save(commit=False)
             flyer.profile = profile
             flyer.save()
+            messages.success(request, "Flyer created successfully!")
             return redirect("flyer_detail", pk=flyer.pk)
-
     else:
         form = FlyerForm()
 
@@ -189,8 +188,8 @@ def flyer_edit(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Flyer updated successfully!")
             return redirect("flyer_detail", pk=flyer.pk)
-
     else:
         form = FlyerForm(instance=flyer)
 
@@ -210,6 +209,7 @@ def flyer_delete(request, pk):
 
     if request.method == "POST":
         flyer.delete()
+        messages.success(request, "Flyer deleted successfully!")
         return redirect("dashboard")
 
     return render(
